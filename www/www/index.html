@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AXOL</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+    
+    * {margin: 0; padding: 0; box-sizing: border-box}
+    
+    body {
+        background: #000;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Bungee', sans-serif;
+        overflow: hidden;
+    }
+
+    :root {
+        --start-gap: 12px;
+        --logo-size: 40px;
+        --reopen-gap: calc(50% - 100px);
+    }
+
+    .stage {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80px;
+    }
+
+    .axol {
+        color: #fff;
+        font-size: 42px;
+        letter-spacing: 6px;
+        display: flex;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .axol span {
+        display: inline-block;
+        transform-origin: center;
+        animation: dissolveChar 0.35s cubic-bezier(.4,0,.2,1) forwards;
+    }
+    
+    .axol span:nth-child(1) { animation-delay: 2.2s }
+    .axol span:nth-child(2) { animation-delay: 2.4s }
+    .axol span:nth-child(3) { animation-delay: 2.6s }
+    .axol span:nth-child(4) { animation-delay: 2.8s }
+
+    .line {
+        position: absolute;
+        width: 3px;
+        height: 60px;
+        background: #fff;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .line-left {
+        left: calc(-1 * var(--start-gap));
+        animation: collideAndReopenLeft 4s cubic-bezier(.85,0,.15,1) 2s forwards;
+    }
+    
+    .line-right {
+        right: calc(-1 * var(--start-gap));
+        animation: collideAndReopenRight 4s cubic-bezier(.85,0,.15,1) 2s forwards;
+    }
+
+    .powered {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #fff;
+        font-size: 14px;
+        letter-spacing: 2px;
+        opacity: 0;
+        animation: showPowered 0.5s ease-out 4.8s forwards;
+    }
+    
+    .powered-logo {
+        width: var(--logo-size);
+        height: var(--logo-size);
+        object-fit: contain;
+    }
+
+    @keyframes collideAndReopenLeft {
+        0% { left: calc(-1 * var(--start-gap)) }
+        50% { left: 50% }
+        100% { left: var(--reopen-gap) }
+    }
+    
+    @keyframes collideAndReopenRight {
+        0% { right: calc(-1 * var(--start-gap)) }
+        50% { right: 50% }
+        100% { right: var(--reopen-gap) }
+    }
+    
+    @keyframes dissolveChar {
+        0% { opacity: 1; transform: scaleX(1); filter: blur(0) }
+        100% { opacity: 0; transform: scaleX(0); filter: blur(2px) }
+    }
+    
+    @keyframes showPowered {
+        0% { opacity: 0; transform: scale(0.9) }
+        100% { opacity: 1; transform: scale(1) }
+    }
+
+    @media (max-width: 600px) {
+        .axol { font-size: 32px; letter-spacing: 4px }
+        .line { height: 50px; width: 2px }
+        .powered { font-size: 12px }
+        :root { 
+            --start-gap: 8px;
+            --logo-size: 52px;
+            --reopen-gap: calc(50% - 80px);
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="stage">
+        <div class="line line-left"></div>
+        <div class="axol">
+            <span>A</span><span>X</span><span>O</span><span>L</span>
+        </div>
+        <div class="line line-right"></div>
+        
+        <div class="powered">
+            <span>POWERED BY</span>
+            <img src="logo.png" alt="B" class="powered-logo">
+        </div>
+    </div>
+
+    <script>
+        // Redirect to main.html after animation completes
+        // 4.8s logo appears + 0.5s fade + 1.7s hold = 7s total
+        setTimeout(() => {
+            window.location.href = 'main.html';
+        }, 7000);
+    </script>
+</body>
+</html>
