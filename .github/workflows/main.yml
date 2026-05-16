@@ -29,17 +29,6 @@ jobs:
       - name: Create project files + HTML
         run: |
           cat > package.json << 'EOF'
-          {
-            "name": "tower-rush",
-            "version": "1.0.0",
-            "dependencies": {
-              "@capacitor/core": "^6.0.0",
-              "@capacitor/android": "^6.0.0",
-              "@capacitor/cli": "^6.0.0"
-            }
-          }
-          EOF
-
           cat > capacitor.config.ts << 'EOF'
           import { CapacitorConfig } from '@capacitor/cli';
           const config: CapacitorConfig = {
